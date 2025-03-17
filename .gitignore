@@ -1,2 +1,10 @@
 __pycache__/
 tests/
+.pytest_cache/
+.venv/
+venv/
+dist/
+build/
+*.pyc
+*.log
+issaw.egg-info/

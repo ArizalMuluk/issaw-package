@@ -1,2 +1,1 @@
-from .sawnorm import sawnorm
-from .sawpref import sawpref
+from .saw import SAW
