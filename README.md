@@ -10,11 +10,17 @@
 
 ## Installation
 
-You can install `issaw` using pip:
+You can install `issaw` directly from the GitHub repository using pip:
+
+```bash
+pip install git+https://github.com/ArizalMuluk/issaw.git
+
+```
+<!-- You can install `issaw` using pip:
 
 ```bash
 pip install issaw
-```
+``` -->
 
 ## Usage
 
