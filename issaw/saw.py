@@ -62,6 +62,23 @@ class SAW:
         """
         return np.sum(norm_matrix * self.weight, axis=1)
 
+    def rank_score(self, preference):
+        """
+        Ranks the preference values.
+
+        Args:
+            preference (np.ndarray): The preference values.
+
+        Returns:
+            np.ndarray: The ranks of the alternatives.
+        """
+        sorted_indices = np.argsort(preference)
+        sorted_indices = sorted_indices[::-1]
+        ranks = np.zeros_like(sorted_indices, dtype=int)
+        for i, index in enumerate(sorted_indices):
+            ranks[index] = i + 1
+        return ranks
+
     def calculate(self):
         """
         Performs the complete SAW calculation.
@@ -71,4 +88,5 @@ class SAW:
         """
         norm_matrix = self._normalize()
         preference = self._calculate_preference(norm_matrix)
-        return norm_matrix, preference
+        ranks = self.rank_score(preference)
+        return norm_matrix, preference, ranks

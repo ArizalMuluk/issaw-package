@@ -1,6 +1,12 @@
-# issaw: Simple Additive Weighting (SAW) Method in Python
+# issaw: Simple Additive Weighting (SAW) Library
 
-This Python library provides a simple and efficient implementation of the Simple Additive Weighting (SAW) method, a widely used Multiple Criteria Decision Making (MCDM) technique. SAW is particularly useful for evaluating alternatives based on multiple criteria with different weights.
+**issaw** is a Python library for implementing the Simple Additive Weighting (SAW) method for Multi-Criteria Decision Making (MCDM). It provides functions for normalizing decision matrices, calculating preference values, and now also **ranking alternatives based on their preference scores.**
+
+## Features
+
+- **Normalization:** Normalizes the decision matrix based on criteria types ('benefit' or 'cost').
+- **Preference Calculation:** Calculates preference values for each alternative based on normalized values and weights.
+- **Ranking:** **NEW!** Ranks alternatives based on their preference scores, providing a clear order of preference.
 
 ## Installation
 
@@ -10,52 +16,49 @@ You can install `issaw` using pip:
 pip install issaw
 ```
 
-This will install the necessary dependencies, including NumPy.
-
 ## Usage
 
-The core functionality is provided through the `saw` function. This function takes two arguments:
-
-1. **decision_matrix**: A list of lists representing the decision matrix. Each inner list represents an alternative, and each element within the inner list represents the rating of that alternative on a specific criterion.
-2. **weights**: A list of floats representing the weights of each criterion. The length of this list must match the number of columns in the decision_matrix.
-
-Here's a basic example:
-
 ```python
-from issaw import saw
+import numpy as np
+from issaw import SAW
 
-# Define the decision matrix (alternatives x criteria)
-decision_matrix = [
-    [8, 7, 6, 9],  # Alternative 1
-    [6, 8, 7, 5],  # Alternative 2
-    [7, 6, 8, 7],  # Alternative 3
-    [9, 5, 7, 8]   # Alternative 4
-]
+# Decision matrix
+matrix = np.array([[8, 7, 9, 6], [7, 8, 6, 8], [9, 6, 8, 7], [6, 9, 7, 9]])
 
-# Define the weights for each criterion
-weights = [0.25, 0.25, 0.25, 0.25]  # Equal weights in this example
+# Criteria types ('benefit' or 'cost')
+criteria = ["benefit", "benefit", "benefit", "benefit"]
 
-# Calculate the SAW scores
-scores = saw(decision_matrix, weights)
+# Weights for each criterion
+weights = [0.3, 0.25, 0.25, 0.2]
 
-# Print the results
-print(scores)  # Output: [7.75, 6.75, 7.0, 7.25]
+# Initialize SAW object
+saw = SAW(matrix, criteria, weights)
+
+# Perform SAW calculation, including ranking
+normalized_matrix, preference_values, ranks = saw.calculate()
+
+# Print results
+print("Normalized Matrix:\n", normalized_matrix)
+print("Preference Values:\n", preference_values)
+print("Ranks:\n", ranks)
 ```
 
-This will output a list of SAW scores for each alternative. The alternative with the highest score is considered the best in this method. Remember to handle potential errors, such as mismatched dimensions between the decision matrix and weights.
+## Output
 
-## Features
+The `calculate()` method now returns a tuple containing:
 
-- **Simple and intuitive API**: The `saw` function provides a straightforward interface for calculating SAW scores.
-- **Efficient implementation using NumPy**: Leverages NumPy for efficient array operations, resulting in faster computation, especially for larger datasets.
-- **Handles various data types**: The decision matrix can accept various numerical data types (integers, floats).
-- **Supports custom weights**: Allows users to specify custom weights for each criterion to reflect their relative importance.
-- **Clear Error Handling**: (Add this if implemented) The function includes error handling for invalid inputs (e.g., mismatched dimensions, non-numeric values).
+- **normalized_matrix**: The normalized decision matrix.
+- **preference_values**: The preference values for each alternative.
+- **ranks**: The ranks of the alternatives, with rank 1 being the most preferred.
 
 ## Contributing
 
-Contributions are welcome! Please feel free to open issues or submit pull requests.
+Contributions are welcome! Please open an issue or submit a pull request.
 
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Version
+
+0.2.0
