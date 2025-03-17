@@ -13,7 +13,7 @@
 You can install `issaw` directly from the GitHub repository using pip:
 
 ```bash
-pip install git+https://github.com/ArizalMuluk/issaw.git
+pip install git+https://github.com/ArizalMuluk/issaw-package.git
 
 ```
 <!-- You can install `issaw` using pip:
